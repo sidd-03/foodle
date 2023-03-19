@@ -24,6 +24,7 @@ app.use("/api/buyers", require("./routes/buyer.route"));
 app.use("/api/vendors", require("./routes/vendor.route"));
 app.use("/api/items", require("./routes/item.route"));
 app.use("/api/orders", require("./routes/order.route"));
+app.use("/api/stripe", require("./routes/stripe.route"));
 
 // Connection to MongoDB
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, err => {

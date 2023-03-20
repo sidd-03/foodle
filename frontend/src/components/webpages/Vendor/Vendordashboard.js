@@ -11,8 +11,7 @@ const VendorDashboard = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/items/vendor", {
+    axios.get("http://localhost:5000/api/items/vendor", {
         headers: {
           authorization: localStorage.getItem("token")
         }
@@ -22,8 +21,8 @@ const VendorDashboard = () => {
       });
   }, []);
 
-  // Calculate the average rating for the item
-  const calculateRatings = item => {
+  // Calculate  rating for the item
+  const computeRating = item => {
     let sum = 0;
     for (let i = 0; i < item.rating.count; i++) {
       sum += item.rating.ratings[i];
@@ -32,17 +31,14 @@ const VendorDashboard = () => {
     return isNaN(res) ? 0 : res;
   }
 
-  //for delete
   const handleDelete = item => {
     setItems(items.filter(i => i._id !== item._id));
   };
 
-  //for update
   const handleUpdate = item => {
     setItems(items.map(i => (i._id === item._id ? item : i)));
   };
 
-  //for addition
   const handleAddition = item => {
     setItems([...items, item]);
   };
@@ -53,11 +49,11 @@ const VendorDashboard = () => {
     <div>
       {matches ?
         <Typography className="dashboard-heading" variant="h3" component="h1">
-          My Items
+          Items on Your Menu
         </Typography>
         :
         <Typography className="dashboard-heading" variant="h4" component="h1">
-          My Items
+          Items on Your Menu
         </Typography>
       }
 
@@ -77,7 +73,7 @@ const VendorDashboard = () => {
                 <ItemCard
                   item={item}
                   vendor=""
-                  calculateRatings={calculateRatings}
+                  computeRating={computeRating}
                   onEdit={handleUpdate}
                   onDelete={handleDelete}
                 />
@@ -86,7 +82,7 @@ const VendorDashboard = () => {
           })
           :
           <Typography variant="h5" component="h1">
-            No items listed yet.
+            Added Items will appear here.
           </Typography>
         }
         <ItemAdd

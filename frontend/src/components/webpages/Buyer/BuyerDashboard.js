@@ -102,13 +102,13 @@ const BuyerDashboard = () => {
             if (sort.sort_by === 'Price') {
                 items = items.sort((a, b) => a.price - b.price);
             } else if (sort.sort_by === 'Rating') {
-                items = items.sort((a, b) => calculateRatings(a) - calculateRatings(b));
+                items = items.sort((a, b) => computeRating(a) - computeRating(b));
             }
         } else if (sort.order === 'Descending') {
             if (sort.sort_by === 'Price') {
                 items = items.sort((a, b) => b.price - a.price);
             } else if (sort.sort_by === 'Rating') {
-                items = items.sort((a, b) => calculateRatings(b) - calculateRatings(a));
+                items = items.sort((a, b) => computeRating(b) - computeRating(a));
             }
         }
 
@@ -128,7 +128,7 @@ const BuyerDashboard = () => {
     }
 
     // calculate average rating
-    const calculateRatings = item => {
+    const computeRating = item => {
         let sum = 0;
         for (let i = 0; i < item.rating.count; i++) {
             sum += item.rating.ratings[i];
@@ -206,7 +206,7 @@ const BuyerDashboard = () => {
                     setEntities={setEntities}
                     sort={sort}
                     setSort={setSort}
-                    calculateRatings={calculateRatings}
+                    computeRating={computeRating}
                 />
                 <BuyerFavourites />
             </Stack>
@@ -228,7 +228,7 @@ const BuyerDashboard = () => {
                                     <ItemCard
                                         item={item}
                                         vendor={entities.vendors.find(vendor => vendor._id === item.vendor_id)}
-                                        calculateRatings={calculateRatings}
+                                        computeRating={computeRating}
                                     />
                                 </Grid>
                             );

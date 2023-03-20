@@ -56,17 +56,6 @@ exports.addItem = async (req, res) => {
             image = "default.jpg";
         }
 
-        // If any addons were provided
-        let addons = [];
-        if (req.body.addons !== "") {
-            addons = req.body.addons.split(",").map(addon => {
-                return {
-                    addon_name: addon.split("-")[0],
-                    addon_price: Number(addon.split("-")[1])
-                }
-            })
-        }
-
         // Create a new item
         const new_item = new Item({
             name: req.body.name,
@@ -74,7 +63,6 @@ exports.addItem = async (req, res) => {
             vendor_id: req.user,
             price: req.body.price,
             category: req.body.category,
-            addons: addons,
             tags: req.body.tags.split(","),
         });
 
@@ -120,16 +108,6 @@ exports.editItem = async (req, res) => {
         // If an image file was uploaded, save it to the server
         if (req.file) {
             item.image = req.file.filename;
-        }
-
-        // If any addons were provided
-        if (req.body.addons !== "") {
-            item.addons = req.body.addons.split(",").map(addon => {
-                return {
-                    addon_name: addon.split("-")[0],
-                    addon_price: Number(addon.split("-")[1])
-                }
-            })
         }
 
         const saved_item = await Item.findByIdAndUpdate(item._id, item, {

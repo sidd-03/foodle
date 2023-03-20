@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 import { user_type } from "../../lib/auth";
 
 
-const ItemCard = ({ item, vendor, computeRating, onEdit, onDelete }) => {
+const ItemCard = ({ item, vendor, calculateRatings, onEdit, onDelete }) => {
     const [isFavourite, setIsFavourite] = useState(false);
 
     useEffect(() => {
@@ -144,7 +144,7 @@ const ItemCard = ({ item, vendor, computeRating, onEdit, onDelete }) => {
                 <Typography gutterBottom variant="h5" component="h2" style={{ marginTop: "0.5rem" }}>
                     {item.name}
                 </Typography>
-                <Rating name="read-only" value={computeRating(item)} readOnly />
+                <Rating name="read-only" value={calculateRatings(item)} readOnly />
                 {vendor !== "" ?
                     <Typography variant="body2" color="textSecondary" component="p">
                         {vendor.shop_name}
